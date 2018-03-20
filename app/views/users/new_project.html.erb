@@ -1,0 +1,22 @@
+<h1>Provide the project details</h1>
+
+<%= form_for @proj, method: :post, url: url_for({action: "create_project"}) do |f| %>
+	<p>
+		<%= f.label :Project_Name %><br>
+		<%= f.text_field :project_name %>
+	</p>
+	<p>
+		<%= f.label :Description %><br>
+		<%= f.text_area :description %>
+	</p>
+	<h3>Choose Skills </h3>
+	<p>
+    	<%= f.radio_button :skill, 'android' %> Android Application<br />
+    	<%= f.radio_button :skill, 'web development' %> Web Development <br />
+    	<%= f.radio_button :skill, 'Ios' %> ios Application<br />
+    	<%= f.radio_button :skill, 'Design' %> Design UI/UX<br />
+	</p>
+	<p>
+		<%= f.submit "Post" %>
+	</p>
+<% end %>

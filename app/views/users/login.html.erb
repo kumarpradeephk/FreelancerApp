@@ -1,0 +1,18 @@
+<h1>Welcome to Login Page</h1>
+<h3>Fill the credential</h3>
+
+<%= form_for @login, method: :post, url: url_for({action: "auth"}) do |f| %>
+	<p>
+		<%= f.label :user_name %><br>
+		<%= f.text_field :user_id %>
+	</p>
+	<p>
+		<%= f.label :password %><br>
+		<%= f.password_field :password %>
+	</p>
+	<p>
+		<%= f.submit "Login" %>
+	</p>
+<% end %>
+
+<%= link_to "Home_Page", users_path %> 
