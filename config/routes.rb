@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   get 'sessions/signup'
 
-  get 'sessions/logout'
+  delete 'sessions/logout'
 
+  post 'auth', to: "sessions#auth"
   # get 'projects/new'
 
   # get 'projects/create'
@@ -20,10 +21,10 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index, :show, :update]
   get 'login', to: 'users#login'
   get 'signup', to: 'users#signup'
-  post 'auth', to: "sessions#auth"
   get 'home', to: "users#home"
   
   resources :projects
+  get 'view', to: 'projects#view'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

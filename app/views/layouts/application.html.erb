@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>FreelancerApp</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>FreelancerApp</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
+<body>
   <% flash.each do |name,msg| %>
-	<ul>
-	<li><%= msg %></li>
-	</ul>
-	<% end %>
-    <%= yield %>
-    <%= link_to "log out", sessions_logout_path %>
-  </body>
+  <ul>
+   <li><%= msg %></li>
+ </ul>
+ <% end %>
+ <%= yield %>
+
+ <% if logged_in? %>
+<%= link_to "log out", sessions_logout_path, method: :delete %>
+<% end %>
+</body>
 </html>

@@ -4,7 +4,7 @@
 <%= form_for @login, method: :post, url: url_for({action: "auth"}) do |f| %>
 	<p>
 		<%= f.label :user_name %><br>
-		<%= f.text_field :user_id %>
+		<%= f.text_field :username %>
 	</p>
 	<p>
 		<%= f.label :password %><br>

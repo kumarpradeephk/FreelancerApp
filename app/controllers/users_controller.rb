@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
 
   def index
-    #binding.pry
   end
 
   def home
-
+    @all_projects = Project.where.not(user: current_user).pluck(:skill,:description)
+    @my_projects = current_user.projects.pluck(:skill,:description)
   end
 
   def signup
@@ -24,6 +24,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:user_id, :email, :password, :category)
+    params.require(:user).permit(:username, :email, :password, :category)
   end
 end

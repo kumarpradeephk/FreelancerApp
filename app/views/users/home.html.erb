@@ -1,1 +1,33 @@
+ 
+ <div style="text-align: center;">
 <h1>Welcome to home page</h1>
+<br/><h1>Other Projects</h1><br/>
+
+<table border="4px;" align="center" style="height: 100%;width: 80%;">
+	<th>SKILLS</th>
+	<th>PROJECT DESCRIPTIONS</th>
+	<% @all_projects.each do |skill, description|%>
+	<tr>
+		<td><%= skill %></td>
+		<td><%= description %></td>
+	</tr>
+	<% end %>
+</table>
+ <% if logged_in? %>
+
+<br/><h1>My Projects</h1><br/>
+<table border="4px;" align="center" style="height: 100%;width: 80%;">
+	<th>SKILLS</th>
+	<th>PROJECT DESCRIPTIONS</th>
+	<% @my_projects.each do |skill, description|%>
+	<tr>
+		<td><%= skill %></td>
+		<td><%= description %></td>
+	</tr>
+	<% end %>
+</table>
+
+<% else %>
+	<%= link_to "Goto_home_page", users_path %>
+<% end %>
+</div>

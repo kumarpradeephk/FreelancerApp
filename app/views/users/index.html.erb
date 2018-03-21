@@ -1,3 +1,4 @@
 <h1>Freelancer App</h1>
-
+ <% if !logged_in? %>
 <%= link_to "Login", sessions_login_path %> | <%= link_to "signup", signup_path %>
+<% end %>

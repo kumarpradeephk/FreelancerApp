@@ -3,17 +3,23 @@ class ProjectsController < ApplicationController
 		@project = Project.new
 	end
 
+	def view
+
+	end
+
 	def create
+
 		begin
-			@project = Project.new(project_params)
-			if @project.save
+			#binding.pry
+			@project = current_user.projects.new(project_params)
+			if @project.save!
 				flash[:notice] =  " Successfully posted your project "
 			end
 		rescue  => e
 			flash[:notice] = "something error/field can't be blank"
 		end
-    #redirect_to home_path
-    render plain: params[:project].inspect
+		redirect_to home_path
+    #render plain: params[:project].inspect
 end
 
 private
