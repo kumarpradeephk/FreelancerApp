@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'sessions/login', to: 'sessions#login'
+
+  get 'sessions/signup'
+
+  get 'sessions/logout'
+
   # get 'projects/new'
 
   # get 'projects/create'
@@ -14,7 +20,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index, :show, :update]
   get 'login', to: 'users#login'
   get 'signup', to: 'users#signup'
-  post 'auth', to: "users#auth"
+  post 'auth', to: "sessions#auth"
   get 'home', to: "users#home"
   
   resources :projects
