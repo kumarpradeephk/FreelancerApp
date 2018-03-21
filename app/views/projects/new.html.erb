@@ -1,6 +1,6 @@
 <h1>Provide the project details</h1>
 
-<%= form_for @proj, method: :post, url: url_for({action: "create_project"}) do |f| %>
+<%= form_for @project do |f| %>
 	<p>
 		<%= f.label :Project_Name %><br>
 		<%= f.text_field :project_name %>
