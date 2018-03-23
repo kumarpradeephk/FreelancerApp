@@ -1,33 +1,83 @@
- 
- <div style="text-align: center;">
-<h1>Welcome to home page</h1>
-<br/><h1>Other Projects</h1><br/>
+<div style="text-align: center;">
+	<h1>Welcome to home page</h1>
 
-<table border="4px;" align="center" style="height: 100%;width: 80%;">
-	<th>SKILLS</th>
-	<th>PROJECT DESCRIPTIONS</th>
-	<% @all_projects.each do |skill, description|%>
-	<tr>
-		<td><%= skill %></td>
-		<td><%= description %></td>
-	</tr>
+<!-- other project -->
+<div class="container">
+	<br/><h1>Other Projects</h1><br/>
+	<div class="column root-container ">
+		<% @all_projects.each do |skill, projects| %>
+			<div class="row skill-container jumbotron">
+				<div class="col-3 title well"><%= skill %></div>
+				<div class="col-7"> 
+					<% projects.each do |project| %>
+						<div class="column desc-container">
+							<div class="title"><%= project.project_name %></div> 
+							<div><%= project.description %></div>
+							<%if @current_user.work? && !project.isapplied %>
+							<div> 
+								<%= link_to "Apply for this project", url_for({action: "apply", params: {id: project.id}}),  data: {confirm: "Are you Sure?"}, class: 'btn btn-success' %>
+							</div>
+							<%elsif @current_user.hire? %>
+							<a href="#" class='btn btn-primary disabled'>you can not apply</a>
+							<%else%>
+							<a href="#" class='btn btn-primary disabled'>Already taken</a>
+							<%end%>
+						</div>
+					<%end%>
+				</div>
+				
+			</div>
+		<%end%>
+	</div>
+</div>
+	<!-- <table class="table">
+		<thead>
+		<th>SKILL</th>
+		<th>PROJECT DESCRIPTION</th>
+		<%if @current_user.category == 'work'%>
+			<th>WANT TO APPLY </th>
+		</thead>
+		<% end %>
+		<% @all_projects.each do |skill, projects|%>
+			<tbody>			
+			<% projects.each do |project| %>
+			<% if !project.isapplied %>
+				<tr>
+				<% if !project.isapplied %>
+					<td rowspan = <%= projects.count %>><%= skill %></td>
+				<% end %>	
+					<td ><%= project.description %></td>
+					<%if @current_user.work? && !project.isapplied %>
+						<td><%= link_to "Apply for this project", url_for({action: "apply", params: {id: project.id}}),  data: {confirm: "Are you Sure?"}, class: 'btn btn-primary' %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+			<% end %>
+			</tbody>
+		<% end %>
+	</table> -->
+
+<!-- My project -->
+	<% if logged_in? && @current_user.category == 'hire'%>
+		<br/><h1>My Projects</h1><br/>
+		<table class="table table-striped">
+			<thead>
+			<th>SKILLS</th>
+			<th>PROJECT DESCRIPTIONS</th>
+			</thead>
+			<% @my_projects.each do |skill, description|%>
+				<tbody>
+				<tr>
+					<td><%= skill %></td>
+					<td><%= description %></td>
+				</tr>
+				</tbody>
+			<% end %>
+		</table>
+	<% elsif logged_in? && @current_user.category == 'work'%>
+	 <br><%= link_to "view your applied Projects", applied_path, class: 'btn btn-info' %>
+	<% else %>
+		<%= link_to "Home", users_path %>
 	<% end %>
-</table>
- <% if logged_in? %>
-
-<br/><h1>My Projects</h1><br/>
-<table border="4px;" align="center" style="height: 100%;width: 80%;">
-	<th>SKILLS</th>
-	<th>PROJECT DESCRIPTIONS</th>
-	<% @my_projects.each do |skill, description|%>
-	<tr>
-		<td><%= skill %></td>
-		<td><%= description %></td>
-	</tr>
-	<% end %>
-</table>
-
-<% else %>
-	<%= link_to "Goto_home_page", users_path %>
-<% end %>
 </div>

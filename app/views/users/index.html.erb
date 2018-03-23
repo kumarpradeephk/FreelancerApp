@@ -1,4 +1,7 @@
-<h1>Freelancer App</h1>
- <% if !logged_in? %>
-<%= link_to "Login", sessions_login_path %> | <%= link_to "signup", signup_path %>
-<% end %>
+<div class="container jumbotron" style="text-align: center;">
+	<p style="font-size: 80px;font-weight: bold;">Welcome to Freelancer</p>
+	<h3>Here you can Post your projects and You can apply for the Project</h3>
+	 <% if !logged_in? %>
+	  <%= link_to "signup Now", signup_path, class: "btn btn-success btn-lg" %>
+	<% end %>
+</div>

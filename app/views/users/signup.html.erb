@@ -1,5 +1,5 @@
 <h1>Welcome to Signup Page</h1>
-<h3>Fill the form and click on Signup</h3>
+<h4>Fill the form and click on Signup</h4>
 
 <%= form_for @signup do |f| %>
 	<p>
@@ -19,8 +19,8 @@
     	<%= f.radio_button :category, 'work' %> Work<br />
 	</p>
 	<p>
-		<%= f.submit "Signup" %>
+		<%= f.submit "Signup", class: 'btn btn-primary btn-lg' %>
 	</p>
 <% end %>
 
-<%= link_to "Goto_home_page", users_path %>
+<%= link_to "Home", users_path, class: 'btn btn-primary btn-lg' %>

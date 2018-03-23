@@ -9,15 +9,10 @@
 </head>
 
 <body>
-  <% flash.each do |name,msg| %>
-  <ul>
-   <li><%= msg %></li>
- </ul>
- <% end %>
+ <%= render 'layouts/navigation' %>
+ <%= render 'layouts/messages' %>
+ <div class = 'container'><br>
  <%= yield %>
-
- <% if logged_in? %>
-<%= link_to "log out", sessions_logout_path, method: :delete %>
-<% end %>
+</div>
 </body>
 </html>

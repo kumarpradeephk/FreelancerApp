@@ -1,0 +1,35 @@
+
+#logo{
+	color:white;
+	font-weight:bold;
+	font-size:1.7em;
+	float:left;
+}
+
+.desc-container {
+	margin: 10px auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px 30px;	
+}
+
+.title {
+	font-weight: bold;
+	text-transform: uppercase;
+	display: flex;
+	align-items: center;
+}
+
+.root-container {
+	//align-items: center;
+	//display: flex;
+	//flex-direction: column;
+}
+
+.skill-container {
+	display: flex;
+
+}

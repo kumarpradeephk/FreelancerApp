@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'login', to: 'users#login'
   get 'signup', to: 'users#signup'
   get 'home', to: "users#home"
+  get 'apply', to: "users#apply"
+  get 'applied', to: "users#applied"
   
   resources :projects
   get 'view', to: 'projects#view'

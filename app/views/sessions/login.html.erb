@@ -11,8 +11,8 @@
 		<%= f.password_field :password %>
 	</p>
 	<p>
-		<%= f.submit "Login" %>
+		<%= f.submit "Login", class: "btn btn-info" %>
 	</p>
 <% end %>
 
-<%= link_to "Goto_home_Page", users_path %> 
+<%= link_to "Home", users_path, class: "btn btn-info" %> 
