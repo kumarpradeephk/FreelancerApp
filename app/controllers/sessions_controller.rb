@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 			category = @user.category
 			raise "Not authenticated" unless @user.authenticate(password)
 			session[:token] = @user.token
-			flash[:notice] =  " Successfully Logged In as a #{category}"
+			flash[:notice] =  " Successfully Logged In as a #{category} person"
 			if(category=='hire')
 				redirect_to view_path
 			elsif(category=='work')
@@ -24,10 +24,9 @@ class SessionsController < ApplicationController
 	end
 
 	def logout
-		#binding.pry
 		if session[:token]
 			session[:token] = nil
-			flash[:notice] =  " you have successfully logout"
+			flash[:notice] =  " you have successfully loged out"
 			redirect_to users_path
 		else
 			flash[:notice] =  " you have already loged out"

@@ -1,7 +1,6 @@
-<div class="container jumbotron" style="text-align: center;">
-	<p style="font-size: 80px;font-weight: bold;">Welcome to Freelancer</p>
-	<h3>Here you can Post your projects and You can apply for the Project</h3>
+<div class="container jumbotron center indexjumbotron">
+	<h1>Welcome to Freelancer</h1>
 	 <% if !logged_in? %>
-	  <%= link_to "signup Now", signup_path, class: "btn btn-success btn-lg" %>
+	  <%= link_to "SignUp Now", signup_path, class: "btn btn-success btn-lg" %>
 	<% end %>
 </div>

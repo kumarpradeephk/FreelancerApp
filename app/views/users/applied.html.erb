@@ -1,21 +1,21 @@
-<h1 style="text-align: center;">This is Your applied project.</h1>
-
-<% if logged_in? %>
-		<br/><h1 style="text-align: center;">Applied Projects</h1><br/>
-		<table class="table table-striped">
-			<thead>
-			<th>PROJECT DESCRIPTIONS</th>
-			<th>SKILLS</th>
-			</thead>
-			<% @apply.each do |description,skill|%>
-				<tbody>
-				<tr>
-					<td><%= skill %></td>
-					<td><%= description %></td>
-				</tr>
-				</tbody>
-			<% end %>
-		</table>
-<% else %>
-	<%= link_to "Goto_home_page", users_path, class: 'btn btn-primary' %>
-<% end %>
+<div class="jumbotron container">
+	<h1 class="center header">You have applied for these Projects</h1><br>
+	<% if logged_in? %>
+			<table class="table table-bordered">
+				<thead>
+				<th>PROJECT DESCRIPTIONS</th>
+				<th>SKILLS</th>
+				</thead>
+				<% @apply.each do |description,skill|%>
+					<tbody>
+					<tr>
+						<td><%= skill %></td>
+						<td><%= description %></td>
+					</tr>
+					</tbody>
+				<% end %>
+			</table>
+	<% else %>
+		<%= link_to "Goto_home_page", users_path, class: 'btn btn-primary' %>
+	<% end %>
+</div>

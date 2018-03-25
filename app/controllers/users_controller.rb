@@ -6,8 +6,8 @@ class UsersController < ApplicationController
   def home
     begin
 
-    @all_projects = Project.where.not(user: current_user).all.group_by(&:skill)
-    @my_projects = current_user.projects.pluck(:skill,:description)
+      @all_projects = Project.where.not(user: current_user).all.group_by(&:skill)
+      @my_projects = current_user.projects.pluck(:skill,:description)
     rescue
       flash[:notice] = "Not any project avialable."
     end
@@ -28,17 +28,17 @@ class UsersController < ApplicationController
   end 
 
   def apply
-  begin 
-    @project = Project.find(params[:id])
-    applied = current_user.applieds.new(project_name:@project.project_name,description:@project.description,skill:@project.skill)
-    if applied.save!
-      @project.isapplied = true 
-      @project.save!
-      @apply = Applied.last
-      @project.applieds << @apply
-      flash[:notice] = "you have apllied for this project"
-      redirect_to home_path
-    end
+    begin 
+      @project = Project.find(params[:id])
+      applied = current_user.applieds.new(project_name:@project.project_name,description:@project.description,skill:@project.skill)
+      if applied.save!
+        @project.isapplied = true 
+        @project.save!
+        @apply = Applied.last
+        @project.applieds << @apply
+        flash[:notice] = "you have apllied for this project"
+        redirect_to home_path
+      end
     rescue
       flash[:notice] = "Not applied,something error"
       redirect_to home_path
