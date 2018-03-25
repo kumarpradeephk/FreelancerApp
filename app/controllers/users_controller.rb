@@ -5,11 +5,10 @@ class UsersController < ApplicationController
 
   def home
     begin
-
       @all_projects = Project.where.not(user: current_user).all.group_by(&:skill)
       @my_projects = current_user.projects.pluck(:skill,:description)
     rescue
-      flash[:notice] = "Not any project avialable."
+      flash[:notice] = "No any project."
     end
   end
 
