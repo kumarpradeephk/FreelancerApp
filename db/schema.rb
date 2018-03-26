@@ -12,38 +12,37 @@
 
 ActiveRecord::Schema.define(version: 20180323103900) do
 
-  create_table "applied_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "application_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
-    t.bigint "applied_id"
-    t.index ["applied_id"], name: "index_applied_projects_on_applied_id"
-    t.index ["project_id"], name: "index_applied_projects_on_project_id"
+    t.bigint "application_id"
+    t.index ["application_id"], name: "index_application_projects_on_application_id"
+    t.index ["project_id"], name: "index_application_projects_on_project_id"
   end
 
-  create_table "applieds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "applications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "project_name"
     t.text "description"
     t.string "skill"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_applieds_on_user_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
   end
 
-  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "project_name"
     t.text "description"
     t.string "skill"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    # TODO change column to is_closed
-    t.boolean "isapplied", default: false
+    t.boolean "is_closed", default: false
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "username"
     t.string "email"
     t.datetime "created_at", null: false
@@ -53,8 +52,8 @@ ActiveRecord::Schema.define(version: 20180323103900) do
     t.integer "category", limit: 3, default: 0, null: false
   end
 
-  add_foreign_key "applied_projects", "applieds"
-  add_foreign_key "applied_projects", "projects"
-  add_foreign_key "applieds", "users"
+  add_foreign_key "application_projects", "applications"
+  add_foreign_key "application_projects", "projects"
+  add_foreign_key "applications", "users"
   add_foreign_key "projects", "users"
 end

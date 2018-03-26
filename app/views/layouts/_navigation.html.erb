@@ -15,11 +15,14 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+          Action
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+
+          <% if logged_in? %>
+          <%= link_to "Post New Project", new_project_path, class: "dropdown-item btn " %>
+          <%= link_to "View Available Projects", home_path, class: "dropdown-item btn " %>
+          <% end %>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>

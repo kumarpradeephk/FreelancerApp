@@ -4,13 +4,10 @@ class ProjectsController < ApplicationController
 	end
 
 	def view
-
 	end
 
 	def create
-
 		begin
-			#binding.pry
 			@project = current_user.projects.new(project_params)
 			if @project.save!
 				flash[:notice] =  " Successfully posted your project "

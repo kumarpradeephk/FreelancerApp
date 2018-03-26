@@ -29,23 +29,23 @@ class UsersController < ApplicationController
   def apply
     begin 
       @project = Project.find(params[:id])
-      applied = current_user.applieds.new(project_name:@project.project_name,description:@project.description,skill:@project.skill)
-      if applied.save!
-        @project.isapplied = true 
+      @applied = current_user.applications.new(project_name:@project.project_name,description:@project.description,skill:@project.skill)
+      if @applied.save!
+        @project.is_closed = true 
         @project.save!
-        @apply = Applied.last
-        @project.applieds << @apply
+        @apply = Application.last
+        @project.applications << @apply
         flash[:notice] = "you have apllied for this project"
         redirect_to home_path
       end
     rescue
-      flash[:notice] = "Not applied,something error"
+      flash[:notice] = "oops!,something error occured in apply"
       redirect_to home_path
     end
   end
 
   def applied
-    @apply = current_user.applieds.pluck(:skill,:description)
+    @apply = current_user.applications.pluck(:skill,:description)
   end
 
   private
