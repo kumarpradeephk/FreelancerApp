@@ -30,8 +30,18 @@ development:
   encoding: utf8
   database: company
   username: root
-  password: system
+  password: 
   host: 127.0.0.1
   port: 3306
   variables:
     sql_mode: TRADITIONAL
+
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: company_test
+  pool: 5
+  username: root
+  password: 

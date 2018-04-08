@@ -33,9 +33,9 @@
       </li>
       <% end %>
     <% if logged_in? %>
-      <%= link_to "log out", sessions_logout_path, method: :delete, class: 'btn btn-danger' %>
+      <%= link_to "log out", logout_path, method: :delete, class: 'btn btn-danger' %>
       <%else%>
-      <%= link_to "Login", sessions_login_path, class: "btn btn-success" %>
+      <%= link_to "Login", login_path, class: "btn btn-success" %>
     <% end %>
     </ul>
     <form class="form-inline my-2 my-lg-0">

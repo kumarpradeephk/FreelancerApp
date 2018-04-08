@@ -3,6 +3,10 @@ class ProjectsController < ApplicationController
 		@project = Project.new
 	end
 
+	def show
+		@project_detail = Project.find(params[:id])
+	end
+
 	def view
 	end
 
@@ -11,11 +15,12 @@ class ProjectsController < ApplicationController
 			@project = current_user.projects.new(project_params)
 			if @project.save!
 				flash[:notice] =  " Successfully posted your project "
+				redirect_to home_path
 			end
 		rescue  => e
-			flash[:notice] = "something error/field can't be blank"
+			flash[:notice] = "Something error in posting project"
+			redirect_to new_project_path
 		end
-		redirect_to home_path
     #render plain: params[:project].inspect
 end
 

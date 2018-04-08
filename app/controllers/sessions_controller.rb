@@ -11,15 +11,15 @@ class SessionsController < ApplicationController
 			category = @user.category
 			raise "Not authenticated" unless @user.authenticate(password)
 			session[:token] = @user.token
-			flash[:notice] =  " Successfully Logged In as a #{category} person"
+			flash[:success] =  " Successfully Logged In as a #{category} person"
 			if(category=='hire')
 				redirect_to view_path
 			elsif(category=='work')
 				redirect_to home_path
 			end
 		rescue => e 
-			flash[:notice] = e.message
-			redirect_to sessions_login_path
+			flash[:notice] = "Invalid username/password"
+			redirect_to login_path
 		end
 	end
 

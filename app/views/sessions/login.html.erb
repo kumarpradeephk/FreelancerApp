@@ -1,7 +1,7 @@
 <div class="jumbotron container">
  	<h1 class="center header">Welcome to Login Page</h1><br>
 	<div class="col-xl-12">
-		<%= form_for @login, method: :post, url: url_for({action: "auth"}) do |f| %>
+		<%= form_for @login, method: :post, class: "login", url: url_for({action: "auth"}) do |f| %>
 			<div class="form-group row">
 				<div class="controll-label col-md-2">
 					<%= f.label :user_name %>
