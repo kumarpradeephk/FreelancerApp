@@ -5,25 +5,29 @@
 	<div class="container">
 		<br/><h1>Other Projects</h1><br/>
 		<div class="column root-container ">
-			<% @all_projects.each do |skill, projects| %>
+			<% @all_projects.each do |projects| %>
 			<div class="row skill-container jumbotron">
-				<div class="col-3 title well"><%= skill %></div>
+				<div class="col-3 title well">skills</div>
 				<div class="col-7"> 
-					<% projects.each do |project| %>
+					<!-- <p></p> when group wise skills -->
 					<div class="column desc-container">
-						<div class="title"><%= project.project_name %></div> 
-						<div><%= project.description %></div>
-						<%if @current_user.work? && !project.is_closed %>
+						<div class="title"><%= projects.project_name %></div> 
+						<div><%= projects.description %></div>
+						<%if @current_user.work? %>
 						<div> 
-							<%= link_to "Apply for this project", url_for({action: "apply", params: {id: project.id}}),  data: {confirm: "Are you Sure?"}, class: 'btn btn-success' %> | <%= link_to "view", project_path(project.id), class: 'btn btn-info' %>
+							<%= link_to "Apply for this project", formforapplyproject_path(projects.id), class: 'btn btn-success' %> | <%= link_to "view", project_path(projects.id), class: 'btn btn-info' %> | <button class="btn btn-info disable"><%= Project.find(Project.where.not(user: @current_user).find(projects.id).id).applied_user_completion_details.count() %> people Applied </button>
 						</div>
-						<%elsif @current_user.hire? %>
-						<a href="#" class='btn btn-primary disabled'>you can not apply</a>
-						<%else%>
-						<a href="#" class='btn btn-primary disabled'>Already taken</a>
+						<%elsif @current_user.hire?%>
+							<%= link_to "view", project_path(projects.id), class: 'btn btn-info' %> | <button class="btn btn-info disable"><%= Project.find(Project.where.not(user: @current_user).find(projects.id).id).applied_user_completion_details.count() %> people Applied </button>
 						<%end%>
+							<% category = Project.find(projects.id).skills_categories.pluck(:tech_skills) %>
+							<div>
+								<% category.each do |cat| %>
+								<span><button class="btn btn-xs btn-success"><%= cat %></button></span>
+								<% end %>
+							</div>
 					</div>
-					<%end%>
+					<!-- <p></p> end of block-->
 				</div>					
 			</div>
 			<%end%>
@@ -35,15 +39,26 @@
 	<br/><h1>My Projects</h1><br/>
 	<table class="table table-striped">
 		<thead>
-			<th>SKILLS</th>
+			<th>PROJECT NAME</th>
 			<th>PROJECT DESCRIPTIONS</th>
+			<th>CLICK TO VIEW</th>
+			<th>TOTAL APPLICATION</th>
+			<th>SHOW LIST</th>
+			<th>STATUS</th>
 		</thead>
-		<% @my_projects.each do |id,skill, description|%>
+		<% @my_projects.each do |id,project_name, description,is_closed|%>
 		<tbody>
 			<tr>
-				<td><%= skill %></td>
+				<td><%= project_name %></td>
 				<td><%= description %></td>
 				<td><%= link_to "view", project_path(id), class: 'btn btn-info' %></td>
+				<td> <%= Project.find(id).applied_user_completion_details.count() %> </td>
+				<td><%= link_to "view Application",showappliedproject_path(id), class: 'btn btn-info' %></td>
+				<% if is_closed == false%>
+				<td>open</td>
+				<%else%>
+				<td>closed</td>
+				<%end%>
 			</tr>
 		</tbody>
 		<% end %>

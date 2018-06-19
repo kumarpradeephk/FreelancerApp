@@ -21,11 +21,16 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index, :show, :update]
   get 'signup', to: 'users#signup'
   get 'home', to: "users#home"
-  get 'apply', to: "users#apply"
+  post 'apply', to: "users#apply"
   get 'applied', to: "users#applied"
+  get 'approved', to: "users#approved_project"
+  get 'decline', to: "users#decline_user"
   
   resources :projects
   get 'view', to: 'projects#view'
+  get 'showappliedproject', to: 'projects#showappliedproject'
+  
+  get 'formforapplyproject', to: "users#formforapplyproject"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -3,14 +3,35 @@
 	<% if logged_in? %>
 			<table class="table table-bordered">
 				<thead>
-				<th>PROJECT DESCRIPTIONS</th>
-				<th>SKILLS</th>
+				<th>PROJECT NAME</th>
+				<th>DESCRIPTION</th>
+				<th>STATUS</th>
 				</thead>
-				<% @applied_project.each do |id,description,skill|%>
+				<% @applied_project_id.each do |projectId|%>
+				<% applied_project = Project.find(projectId)%>
 					<tbody>
 					<tr>
-						<td><%= skill %></td>
+						<td><%= applied_project.project_name %></td>
+						<td><%= applied_project.description %></td>
+						<td class="btn btn-info">Applied</td>
+					</tr>
+					</tbody>
+				
+				<% end %>
+			</table>
+	<h1 class="center header">You Application has been approved.(*Start Working Now*)</h1><br>
+			<table class="table table-bordered">
+				<thead>
+				<th>PROJECT NAME</th>
+				<th>DESCRIPTION</th>
+				<th>STATUS</th>
+				</thead>
+				<% @applied_confirmed.each do |id,project_name,description|%>
+					<tbody>
+					<tr>
+						<td><%= project_name %></td>
 						<td><%= description %></td>
+						<td class="btn btn-success">Approved</td>
 					</tr>
 					</tbody>
 				<% end %>

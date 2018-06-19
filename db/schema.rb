@@ -10,31 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323103900) do
+ActiveRecord::Schema.define(version: 20180619062206) do
 
-  create_table "application_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "application_id"
-    t.index ["application_id"], name: "index_application_projects_on_application_id"
-    t.index ["project_id"], name: "index_application_projects_on_project_id"
-  end
-
-  create_table "applications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "applied_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "project_name"
-    t.text "description"
-    t.string "skill"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_applications_on_user_id"
+    t.index ["user_id"], name: "index_applied_details_on_user_id"
   end
 
-  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "applied_user_completion_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date "start_date"
+    t.integer "cost"
+    t.integer "total_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.boolean "got_project", default: false
+    t.boolean "is_rejected", default: false
+    t.index ["project_id"], name: "index_applied_user_completion_details_on_project_id"
+    t.index ["user_id"], name: "index_applied_user_completion_details_on_user_id"
+  end
+
+  create_table "completion_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.bigint "applied_user_completion_detail_id"
+    t.index ["applied_user_completion_detail_id"], name: "index_completion_projects_on_applied_user_completion_detail_id"
+    t.index ["project_id"], name: "index_completion_projects_on_project_id"
+  end
+
+  create_table "project_skills_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.bigint "skills_category_id"
+    t.index ["project_id"], name: "index_project_skills_categories_on_project_id"
+    t.index ["skills_category_id"], name: "index_project_skills_categories_on_skills_category_id"
+  end
+
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "project_name"
-    t.text "description"
-    t.string "skill"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -42,18 +63,28 @@ ActiveRecord::Schema.define(version: 20180323103900) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string "username"
-    t.string "email"
+  create_table "skills_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "tech_skills"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "username"
+    t.string "email"
     t.string "password_digest"
     t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "category", limit: 3, default: 0, null: false
   end
 
-  add_foreign_key "application_projects", "applications"
-  add_foreign_key "application_projects", "projects"
-  add_foreign_key "applications", "users"
+  add_foreign_key "applied_details", "users"
+  add_foreign_key "applied_user_completion_details", "projects"
+  add_foreign_key "applied_user_completion_details", "users"
+  add_foreign_key "completion_projects", "applied_user_completion_details"
+  add_foreign_key "completion_projects", "projects"
+  add_foreign_key "project_skills_categories", "projects"
+  add_foreign_key "project_skills_categories", "skills_categories"
   add_foreign_key "projects", "users"
 end

@@ -1,0 +1,34 @@
+<h1 class="header">List of People who applied for this project.</h1>
+<div>
+	<table class="table table-striped">
+		<thead>
+			<th>START DATE(yy-mm-dd)</th>
+			<th>COST(INR)</th>
+			<th>TOTAL TIME (in days)</th>
+			<th>APPROVE</th>
+			<th>DECLINE</th>
+		</thead>
+		<% @all_application.each do |id,start_date,cost,total_time,got_project|%>
+		<tbody>
+			<tr>
+				<td><%= start_date %></td>
+				<td><%= cost %></td>
+				<td><%= total_time %></td>
+				<% proj = Project.find(AppliedUserCompletionDetail.find(id).project_id)%>
+				<% if got_project == false %>
+					<% if proj.is_closed == false %>
+						<td><%= link_to "Approve",approved_path(id), class: 'btn btn-success' %></td>
+						<td><%= link_to "Decline",decline_path(id), class: 'btn btn-danger' %></td>
+					<%else%>
+						<td><button class="btn btn-danger">Project Closed</button></td>
+						<td><%= link_to "Decline",decline_path(id), class: 'btn btn-danger' %></td>
+					<%end%>
+				<%else%>
+					<td><button class="btn btn-info">approved</button></td>
+					<td>Successfully approved</td>
+				<%end%>
+			</tr>
+		</tbody>
+		<% end %>
+	</table>
+</div>

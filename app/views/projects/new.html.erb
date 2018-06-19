@@ -18,15 +18,18 @@
 					<%= f.text_area :description, class: "form-control", placeholder: "project details here........", autofocus: true,rows:10, required:"true" %>
 				</div>
 			</div>
+
 			<div class="form-group row">
+				<div class="controll-label col-md-2">
+					<%= f.label :Category %>
+				</div>
 				<div class="col-md-10">
-					<h3>Choose Skills </h3>
-		    	<%= f.radio_button :skill, 'android' %> Android Application
-		    	<%= f.radio_button :skill, 'web development' %> Web Development
-		    	<%= f.radio_button :skill, 'Ios' %> ios Application
-		    	<%= f.radio_button :skill, 'Design' %> Design UI/UX
-		    	</div>
-		    </div>
+				<%= f.collection_check_boxes :skills_category_ids, SkillsCategory.all, :id, :tech_skills do |cb| %>
+				<% cb.label(class: "checkbox-inline input_checkbox"){cb.check_box(class: "checkbox") + cb.text} %>
+				<% end %>
+				</div>
+			</div>
+
 			<div class="form-group row">
 				<div class="col-md-10">
 				<%= f.submit "Post", class: 'btn btn-success' %>

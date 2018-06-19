@@ -2,8 +2,22 @@
 	<h1 class="center header">Here is your project details</h1>
 
 	<div class="jumbotron">
-		<h3><b>Project Name :</b> <span><%= @project_detail.skill %></span></h3>
+		<h3><b>Project Name :</b> <span><%= @project_detail.project_name %></span></h3>
 		<h3><b>Description :</b> <span><%= @project_detail.description %></span> </h3>
-		<h3><b>Skill :</b> <span><%= @project_detail.skill %></span></h3>
+		<h3><b>Category :</b> <span><%= @category %></span> </h3><hr>
+		<%begin%>
+		<% proj = Project.find(@project_cost_info[0][5]) %>
+		<%if @current_user.category == 'hire' && proj.is_closed == true && proj.user_id == @current_user.id%>
+		<h1 class="center header">Your approval details</h1><hr>
+		<h3><b>Application Id :</b> <span><%= @project_cost_info[0][0] %></span> </h3>
+		<h3><b>Start Date :</b> <span><%= @project_cost_info[0][1] %></span> </h3>
+		<h3><b>Cost :</b> <span><%= @project_cost_info[0][2] %></span> </h3>
+		<h3><b>Total Days :</b> <span><%= @project_cost_info[0][3] %></span> </h3>
+		<h3><b>User Id :</b> <span><%= @project_cost_info[0][4] %></span> </h3>
+		<h3><b>Project Id :</b> <span><%= @project_cost_info[0][5] %></span> </h3>
+		<%end%>
+		<%rescue%>
+		<h4>No approval details</h4><hr>
+		<%end%>
 	</div>
 </div>

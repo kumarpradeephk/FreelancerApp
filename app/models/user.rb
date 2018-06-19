@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 	has_many :projects
-	has_many :applications
+	has_many :applied_details
+	has_many :applied_user_completion_details
 	before_save {self.email = email.downcase}
 	VALID_USERNAME_REGEX = /\A^[a-z0-9_-]{3,15}$\z/i
 	validates :username, presence: true, uniqueness: { case_sensitive: false},

@@ -1,0 +1,43 @@
+<div class="jumbotron container">
+	<div class="col-xl-12">
+	<% if !@current_user.applied_user_completion_details.where(user_id:@current_user).where(project_id:params[:format]).empty? %>
+	<h1 class="center header">You Have Already applied.</h1>
+	<%else%>
+	<h1 class="center header">Provide Your details regarding completion of project</h1><br>
+		<%= form_tag apply_path  do %>
+			<div class="form-group row">
+				<div class="controll-label col-md-2">
+					<%= label_tag :Start_date %>
+				</div>
+				<div class="col-md-10">
+					<%= text_field_tag :start_date,nil, class: "form-control", placeholder: "YYYY-MM-DD", autofocus: true, required:"true" %>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="controll-label col-md-2">
+					<%= label_tag :Cost %>
+				</div>
+				<div class="col-md-10">
+					<%= text_field_tag :cost,nil, class: "form-control", placeholder: "Cost in ruppees", autofocus: true,rows:10, required:"true" %>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="controll-label col-md-2">
+					<%= label_tag :Total_Time %>
+				</div>
+				<div class="col-md-10">
+					<%= text_field_tag :total_time,nil, class: "form-control", placeholder: "Total time in Days", autofocus: true,rows:10, required:"true" %>
+				</div>
+			</div>
+			<div>
+				<%= hidden_field_tag(:projectId, params[:format]) %>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-10">
+				<%= submit_tag "Post", class: 'btn btn-success' %>
+				</div>
+			</div>
+		<% end %>
+	<%end%>
+	</div>
+</div>
