@@ -19,11 +19,11 @@
 						</div>
 						<%elsif @current_user.hire?%>
 							<%= link_to "view", project_path(projects.id), class: 'btn btn-info' %> | <button class="btn btn-info disable"><%= Project.find(Project.where.not(user: @current_user).find(projects.id).id).applied_user_completion_details.count() %> people Applied </button>
-						<%end%>
+						<%end%><br>
 							<% category = Project.find(projects.id).skills_categories.pluck(:tech_skills) %>
 							<div>
 								<% category.each do |cat| %>
-								<span><button class="btn btn-xs btn-success"><%= cat %></button></span>
+								<span><button class="btn btn-danger btn-sm"><%= cat %></button></span>
 								<% end %>
 							</div>
 					</div>

@@ -11,7 +11,7 @@ gem 'rails', '~> 5.1.5'
 #gem for dotenv
 gem 'dotenv-rails', groups: [:development, :test]
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'mysql2', '~> 0.3.11'
 gem 'pry'
 # Use Puma as the app server
@@ -43,6 +43,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'mail'
 group :development do
   gem "rails-erd"
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
 end
 
 group :development, :test do
