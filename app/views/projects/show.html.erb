@@ -4,7 +4,14 @@
 	<div class="jumbotron">
 		<h3><b>Project Name :</b> <span><%= @project_detail.project_name %></span></h3>
 		<h3><b>Description :</b> <span><%= @project_detail.description %></span> </h3>
-		<h3><b>Category :</b> <span><%= @category %></span> </h3><hr>
+
+		<h3><b>Category :<span><% @category.each do |cat| %>
+								<span><button class="btn btn-danger btn-sm"><%= cat %></button></span>
+								<% end %>
+						 </span>
+			 </b>
+		</h3>
+		
 		<%begin%>
 		<% proj = Project.find(@project_cost_info[0][5]) %>
 		<%if @current_user.category == 'hire' && proj.is_closed == true && proj.user_id == @current_user.id%>
