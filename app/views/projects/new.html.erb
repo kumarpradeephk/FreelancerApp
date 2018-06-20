@@ -24,9 +24,7 @@
 					<%= f.label :Category %>
 				</div>
 				<div class="col-md-10">
-				<%= f.collection_check_boxes :skills_category_ids, SkillsCategory.all, :id, :tech_skills do |cb| %>
-				<% cb.label(class: "checkbox-inline input_checkbox"){cb.check_box(class: "checkbox") + cb.text} %>
-				<% end %>
+				<span class="field"><%= f.select(:skills_category_ids,SkillsCategory.all.pluck(:tech_skills,:id),{include_blank: false},{multiple: true, id: "selecttwo", data: {placeholder: "Add category like: python,android,web,docker..."}})%></span>
 				</div>
 			</div>
 

@@ -15,3 +15,8 @@
 //= require libs/jquery-3.2.1.slim.min
 //= require libs/popper.min
 //= require libs/bootstrap.min
+//= require select2
+
+$(function($){
+$("#selecttwo").select2();
+});

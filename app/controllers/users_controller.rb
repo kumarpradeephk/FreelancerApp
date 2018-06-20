@@ -27,10 +27,10 @@ class UsersController < ApplicationController
           flash[:notice] = "Signed Up successfully"
           redirect_to login_path
         end
-      rescue  
-        flash[:notice] = @user.errors.full_messages
-        redirect_to signup_path
-      end
+        rescue  
+          flash[:notice] = @user.errors.full_messages
+          redirect_to signup_path
+        end
   end 
 
 def apply
