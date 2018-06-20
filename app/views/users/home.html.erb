@@ -7,11 +7,11 @@
 		<div class="column root-container ">
 			<% @all_projects.each do |projects| %>
 			<div class="row skill-container jumbotron">
-				<div class="col-3 title well">skills</div>
+				<div class="col-3 title well"><%= projects.project_name %></div>
 				<div class="col-7"> 
 					<!-- <p></p> when group wise skills -->
 					<div class="column desc-container">
-						<div class="title"><%= projects.project_name %></div> 
+						 
 						<div><%= projects.description %></div>
 						<%if @current_user.work? %>
 						<div> 

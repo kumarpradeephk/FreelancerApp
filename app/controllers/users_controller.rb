@@ -75,7 +75,6 @@ def approved_project
     FreelanceMailer.project_approval(User.find(@application.user_id)).deliver
     flash[:notice] = "successfully approved"
     redirect_to showappliedproject_path(@application.project_id)
-    #render json: {"message": "You have approve to this user", "User Details": User.find(@application.user_id).email}
   else
     render json: {"status": "failed to apply"}
   end
@@ -89,7 +88,6 @@ def decline_user
   FreelanceMailer.rejection_mail(User.find(@rejected_application.user_id)).deliver
   flash[:notice] = "Decline success"
   redirect_to showappliedproject_path(@rejected_application.project_id)
-  #render json: {"status": "declined user and mail sent.","user": User.find(@rejected_application.user_id)}
 end
 
 private

@@ -16,9 +16,7 @@ class ProjectsController < ApplicationController
 		begin
   		@proj = Project.find(params[:format])
   		@all_application = @proj.applied_user_completion_details.where(is_rejected: 0).pluck(:id,:start_date,:cost,:total_time,:got_project,:is_rejected)
-  		# app = proj.applied_user_completion_details
-  		# app.find_by_project_id(1).got_project
-  		# proj.applied_user_completion_details.find_by_project_id(1).got_project
+
   		rescue
   			flash[:notice] = "No any project/error."
   		end
@@ -26,7 +24,6 @@ class ProjectsController < ApplicationController
 
 	def create
 		begin
-			#binding.pry
 			@project = current_user.projects.new(project_params)
 			if @project.save!
 				flash[:notice] =  " Successfully posted your project "
