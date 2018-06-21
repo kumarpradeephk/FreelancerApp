@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       begin
         if @user.save!
-        #FreelanceMailer.signup_confirmation(@user).deliver
+        FreelanceMailer.signup_confirmation(@user).deliver
         flash[:notice] = "Signed Up successfully"
         redirect_to login_path
         end
@@ -89,7 +89,7 @@ def approved_project
   if @approved.save! 
     @application.save!
     @project.save!
-    #FreelanceMailer.project_approval(User.find(@application.user_id)).deliver
+    FreelanceMailer.project_approval(User.find(@application.user_id)).deliver
     flash[:notice] = "successfully approved"
     redirect_to showappliedproject_path(@application.project_id)
   else
@@ -102,7 +102,7 @@ def decline_user
   @rejected_project = Project.find(@rejected_application.project_id)
   @rejected_application.is_rejected = true
   @rejected_application.save!
-  #FreelanceMailer.rejection_mail(User.find(@rejected_application.user_id)).deliver
+  FreelanceMailer.rejection_mail(User.find(@rejected_application.user_id)).deliver
   flash[:notice] = "Decline success"
   redirect_to showappliedproject_path(@rejected_application.project_id)
 end
