@@ -2,23 +2,25 @@
 <div>
 	<table class="table table-striped">
 		<thead>
+			<th>Project</th>
 			<th>START DATE(yy-mm-dd)</th>
 			<th>COST(INR)</th>
 			<th>TOTAL TIME (in days)</th>
 			<th>APPROVE</th>
 			<th>DECLINE</th>
 		</thead>
-		<% @all_application.each do |id,start_date,cost,total_time,got_project|%>
+		<% @all_application.each do |id,start_date,cost,total_time,got_project,project_id|%>
 		<tbody>
 			<tr>
+				<td><%= Project.find(project_id).project_name %></td>
 				<td><%= start_date %></td>
 				<td><%= cost %></td>
 				<td><%= total_time %></td>
 				<% proj = Project.find(AppliedUserCompletionDetail.find(id).project_id)%>
 				<% if got_project == false %>
 					<% if proj.is_closed == false %>
-						<td><%= link_to "Approve",approved_path(id), class: 'btn btn-success' %></td>
-						<td><%= link_to "Decline",decline_path(id), class: 'btn btn-danger' %></td>
+						<td><%= link_to "Approve",approved_path(id), data: {confirm: "Are you Sure?"}, class: 'btn btn-success' %></td>
+						<td><%= link_to "Decline",decline_path(id), data: {confirm: "Are you Sure?"}, class: 'btn btn-danger' %></td>
 					<%else%>
 						<td><button class="btn btn-danger">Project Closed</button></td>
 						<td><%= link_to "Decline",decline_path(id), class: 'btn btn-danger' %></td>

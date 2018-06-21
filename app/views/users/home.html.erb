@@ -75,7 +75,7 @@
 				<% end %>
 				
 				<% if is_closed == false%>
-				<td><%= link_to "close this project", close_path(id), class: 'btn btn-sm btn-info' %></td>
+				<td><%= link_to "close this project", close_path(id), data: {confirm: "Are you Sure?"}, class: 'btn btn-sm btn-info' %></td>
 				<%else%>
 				<td><button class="btn btn-danger btn-sm">project closed</button></td>
 				<%end%>

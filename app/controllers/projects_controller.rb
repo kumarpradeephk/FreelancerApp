@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 	def showappliedproject
 		begin
   		@proj = Project.find(params[:format])
-  		@all_application = @proj.applied_user_completion_details.where(is_rejected: 0).pluck(:id,:start_date,:cost,:total_time,:got_project,:is_rejected)
+  		@all_application = @proj.applied_user_completion_details.where(is_rejected: 0).pluck(:id,:start_date,:cost,:total_time,:got_project,:project_id)
 
   		rescue
   			flash[:notice] = "No any project/error."
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
 				redirect_to home_path
 			end
 		rescue  => e
-			flash[:notice] = "Something error in posting project"
+			flash[:notice] = @project.errors.full_messages
 			redirect_to new_project_path
 		end
 end

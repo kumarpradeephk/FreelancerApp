@@ -5,17 +5,17 @@ class UsersController < ApplicationController
 
   def home
     begin
-      if params[:search] == nil
-      @all_projects = Project.where.not(user: current_user)
-      #####sunspot
-          # @search = SkillsCategory.search do
-          #   fulltext params[:search]
-          # end
-        else
-           @all_projects = SkillsCategory.find_by_tech_skills(params[:search]).projects.where.not(user: current_user)
-         end
-      #####sunspot end
-       @my_projects = current_user.projects.pluck(:id,:project_name,:description,:is_closed)
+    if params[:search] == nil
+    @all_projects = Project.where.not(user: current_user)
+    #####sunspot
+        # @search = SkillsCategory.search do
+        #   fulltext params[:search]
+        # end
+    else
+    @all_projects = SkillsCategory.find_by_tech_skills(params[:search]).projects.where.not(user: current_user)
+    end
+    #####sunspot end
+     @my_projects = current_user.projects.pluck(:id,:project_name,:description,:is_closed)
     rescue
       flash[:notice] = "No project available."
     end
@@ -29,14 +29,14 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       begin
         if @user.save!
-          FreelanceMailer.signup_confirmation(@user).deliver
-          flash[:notice] = "Signed Up successfully"
-          redirect_to login_path
+        #FreelanceMailer.signup_confirmation(@user).deliver
+        flash[:notice] = "Signed Up successfully"
+        redirect_to login_path
         end
-        rescue  
-          flash[:notice] = @user.errors.full_messages
-          redirect_to signup_path
-        end
+      rescue  
+        flash[:notice] = @user.errors.full_messages[0]
+        redirect_to signup_path
+      end
   end 
 
 def apply
@@ -46,8 +46,8 @@ def apply
     @applied = current_user.applied_user_completion_details.build(start_date: s_date,cost:params[:cost],total_time:params[:total_time])
     @applied.project = @proj
      if @applied.save! 
-       @apply = AppliedUserCompletionDetail.last
-       @proj.applied_user_completion_details << @apply
+      @apply = AppliedUserCompletionDetail.last
+      @proj.applied_user_completion_details << @apply
       flash[:notice] = "you have apllied for this project"
       redirect_to home_path
     end
@@ -89,7 +89,7 @@ def approved_project
   if @approved.save! 
     @application.save!
     @project.save!
-    FreelanceMailer.project_approval(User.find(@application.user_id)).deliver
+    #FreelanceMailer.project_approval(User.find(@application.user_id)).deliver
     flash[:notice] = "successfully approved"
     redirect_to showappliedproject_path(@application.project_id)
   else
@@ -102,7 +102,7 @@ def decline_user
   @rejected_project = Project.find(@rejected_application.project_id)
   @rejected_application.is_rejected = true
   @rejected_application.save!
-  FreelanceMailer.rejection_mail(User.find(@rejected_application.user_id)).deliver
+  #FreelanceMailer.rejection_mail(User.find(@rejected_application.user_id)).deliver
   flash[:notice] = "Decline success"
   redirect_to showappliedproject_path(@rejected_application.project_id)
 end

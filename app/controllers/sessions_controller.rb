@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
 			username = user_params[:username]
 			password = user_params[:password]
 			@user = User.find_by_username(username)
+			raise "username not exist" unless @user != nil
 			category = @user.category
-			raise "Not authenticated" unless @user.authenticate(password)
+			raise "Not authenticated/invalid password" unless @user.authenticate(password)
 			session[:token] = @user.token
 			flash[:success] =  " Successfully Logged In as a #{category} person"
 			if(category=='hire')
@@ -18,7 +19,7 @@ class SessionsController < ApplicationController
 				redirect_to home_path
 			end
 		rescue => e 
-			flash[:notice] = "Invalid username/password"
+			flash[:notice] = e
 			redirect_to login_path
 		end
 	end
