@@ -18,5 +18,8 @@
 //= require select2
 
 $(function($){
-$("#selecttwo").select2();
+$("#selecttwo").select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+})
 });

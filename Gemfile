@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem "select2-rails"
+gem "sunspot_rails"
+gem "sunspot_solr"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 #ERD generate

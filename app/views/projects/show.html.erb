@@ -2,8 +2,8 @@
 	<h1 class="center header">Here is your project details</h1>
 
 	<div class="jumbotron">
-		<h3><b>Project Name :</b> <span><%= @project_detail.project_name %></span></h3>
-		<h3><b>Description :</b> <span><%= @project_detail.description %></span> </h3>
+		<h3><b>Project Name :</b> <span><%= @project.project_name %></span></h3>
+		<h3><b>Description :</b> <span><%= @project.description %></span> </h3>
 
 		<h3><b>Category :<span><% @category.each do |cat| %>
 								<span><button class="btn btn-danger btn-sm"><%= cat %></button></span>
@@ -11,20 +11,22 @@
 						 </span>
 			 </b>
 		</h3>
-		
 		<%begin%>
-		<% proj = Project.find(@project_cost_info[0][5]) %>
-		<%if @current_user.category == 'hire' && proj.is_closed == true && proj.user_id == @current_user.id%>
+		<% assigned_user_application_id = @project_cost_and_user_info.pluck(:user_id,:applied_user_completion_detail_id)%>
+		<%if @current_user.category == 'hire' %>
 		<h1 class="center header">Your approval details</h1><hr>
-		<h3><b>Application Id :</b> <span><%= @project_cost_info[0][0] %></span> </h3>
-		<h3><b>Start Date :</b> <span><%= @project_cost_info[0][1] %></span> </h3>
-		<h3><b>Cost :</b> <span><%= @project_cost_info[0][2] %></span> </h3>
-		<h3><b>Total Days :</b> <span><%= @project_cost_info[0][3] %></span> </h3>
-		<h3><b>User Id :</b> <span><%= @project_cost_info[0][4] %></span> </h3>
-		<h3><b>Project Id :</b> <span><%= @project_cost_info[0][5] %></span> </h3>
+			<% assigned_user_application_id.each do |item| %>
+			
+			<% cost_detail = @project.applied_user_completion_details.where(user_id:item[0]).where(id:item[1]) %>
+			<h3><b>Start date:</b> <span><%= cost_detail.pluck(:start_date)[0] %></span></h3>
+			<h3><b>Total cost:</b> <span><%= cost_detail.pluck(:cost)[0] %></span></h3>
+			<h3><b>Total Time:</b> <span><%= cost_detail.pluck(:total_time)[0] %></span></h3>
+			<h3><b>User Email:</b> <span><%= User.find(cost_detail.pluck(:user_id)[0]).email %></span></h3><hr>
+			<% end %>
 		<%end%>
 		<%rescue%>
 		<h4>No approval details</h4><hr>
 		<%end%>
 	</div>
 </div>
+

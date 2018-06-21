@@ -5,11 +5,21 @@
 	<div class="container">
 		<br/><h1>Other Projects</h1><br/>
 		<div class="column root-container ">
+
+		<!-- search field start -->
+				<%= form_tag home_path, method: :get do %>
+				<p>
+					<%= text_field_tag :search, params[:search], placeholder: "search by category name" %>
+					<%= submit_tag "search", name: nil%>
+				</p>
+				<% end %>
+		<!-- search field end -->
+		
+		<% begin %>
 			<% @all_projects.each do |projects| %>
 			<div class="row skill-container jumbotron">
 				<div class="col-3 title well"><%= projects.project_name %></div>
 				<div class="col-7"> 
-					<!-- <p></p> when group wise skills -->
 					<div class="column desc-container">
 						 
 						<div><%= projects.description %></div>
@@ -27,10 +37,13 @@
 								<% end %>
 							</div>
 					</div>
-					<!-- <p></p> end of block-->
+
 				</div>					
 			</div>
-			<%end%>
+			<% end %>
+			<% rescue %>
+			<p> Not found </p>
+			<% end %>
 		</div>
 	</div>
 
@@ -40,24 +53,31 @@
 	<table class="table table-striped">
 		<thead>
 			<th>PROJECT NAME</th>
-			<th>PROJECT DESCRIPTIONS</th>
-			<th>CLICK TO VIEW</th>
+			<th>VIEW PROJECT</th>
 			<th>TOTAL APPLICATION</th>
 			<th>SHOW LIST</th>
 			<th>STATUS</th>
+			<th>Action</th>
 		</thead>
 		<% @my_projects.each do |id,project_name, description,is_closed|%>
 		<tbody>
 			<tr>
 				<td><%= project_name %></td>
-				<td><%= description %></td>
 				<td><%= link_to "view", project_path(id), class: 'btn btn-info' %></td>
-				<td> <%= Project.find(id).applied_user_completion_details.count() %> </td>
+				<% project = Project.find(id) %>
+				<td> <%= project.applied_user_completion_details.count() %> </td>
 				<td><%= link_to "view Application",showappliedproject_path(id), class: 'btn btn-info' %></td>
+				
+				<% if project.applied_user_completion_details.pluck(:got_project).include? true %>
+				<td>Assigned</td>
+				<% else %>
+				<td>not assigned</td>
+				<% end %>
+				
 				<% if is_closed == false%>
-				<td>open</td>
+				<td><%= link_to "close this project", close_path(id), class: 'btn btn-sm btn-info' %></td>
 				<%else%>
-				<td>closed</td>
+				<td><button class="btn btn-danger btn-sm">project closed</button></td>
 				<%end%>
 			</tr>
 		</tbody>

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'applied', to: "users#applied"
   get 'approved', to: "users#approved_project"
   get 'decline', to: "users#decline_user"
+  get 'close', to: "users#close_project"
   
   resources :projects
   get 'view', to: 'projects#view'

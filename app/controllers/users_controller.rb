@@ -5,13 +5,19 @@ class UsersController < ApplicationController
 
   def home
     begin
+      if params[:search] == nil
       @all_projects = Project.where.not(user: current_user)
-      #@all_projects.find(5).skills_categories.pluck(:tech_skills)
-      @my_projects = current_user.projects.pluck(:id,:project_name,:description,:is_closed)
-      #@proj = Project.find(Project.where.not(user: current_user).find(1).id)
-      #@count=@proj.applied_user_completion_details.count()
+      #####sunspot
+          # @search = SkillsCategory.search do
+          #   fulltext params[:search]
+          # end
+        else
+           @all_projects = SkillsCategory.find_by_tech_skills(params[:search]).projects.where.not(user: current_user)
+         end
+      #####sunspot end
+       @my_projects = current_user.projects.pluck(:id,:project_name,:description,:is_closed)
     rescue
-      flash[:notice] = "No any project."
+      flash[:notice] = "No project available."
     end
   end
 
@@ -45,7 +51,6 @@ def apply
       flash[:notice] = "you have apllied for this project"
       redirect_to home_path
     end
-   # end
   rescue
     flash[:notice] = "oops!,something error occured in apply/already applied."
     redirect_to home_path
@@ -62,14 +67,26 @@ def applied
 
 end
 
+def close_project
+  begin
+    project = Project.find(params[:format])
+    project.is_closed = true
+    if project.save!
+      flash[:notice] = "successfully closed"
+      redirect_to home_path
+    end
+  rescue
+    flash[:notice] = "failed close request"
+    redirect_to home_path 
+  end
+end
+
 def approved_project
   @application = AppliedUserCompletionDetail.find(params[:format])
   @project = Project.find(@application.project_id)
-  @approved = AppliedDetail.new(project_name:@project.project_name,description:@project.description,user_id:@application.user_id)
-  @project.applied_user_completion_details.find_by_project_id(@application.project_id).got_project = true
-  if @approved.save!
-    @project.is_closed = true 
-    @application.got_project = true
+  @approved = AppliedDetail.new(project_name:@project.project_name,description:@project.description,user_id:@application.user_id,project_id:@application.project_id,applied_user_completion_detail_id:@application.id)
+  @application.got_project = true
+  if @approved.save! 
     @application.save!
     @project.save!
     FreelanceMailer.project_approval(User.find(@application.user_id)).deliver

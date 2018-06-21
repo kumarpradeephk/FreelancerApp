@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619062206) do
+ActiveRecord::Schema.define(version: 20180621063532) do
 
   create_table "applied_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "project_name"
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 20180619062206) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "project_id"
+    t.bigint "applied_user_completion_detail_id"
+    t.index ["applied_user_completion_detail_id"], name: "index_applied_details_on_applied_user_completion_detail_id"
+    t.index ["project_id"], name: "index_applied_details_on_project_id"
     t.index ["user_id"], name: "index_applied_details_on_user_id"
   end
 
@@ -33,15 +37,6 @@ ActiveRecord::Schema.define(version: 20180619062206) do
     t.boolean "is_rejected", default: false
     t.index ["project_id"], name: "index_applied_user_completion_details_on_project_id"
     t.index ["user_id"], name: "index_applied_user_completion_details_on_user_id"
-  end
-
-  create_table "completion_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "applied_user_completion_detail_id"
-    t.index ["applied_user_completion_detail_id"], name: "index_completion_projects_on_applied_user_completion_detail_id"
-    t.index ["project_id"], name: "index_completion_projects_on_project_id"
   end
 
   create_table "project_skills_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -79,11 +74,11 @@ ActiveRecord::Schema.define(version: 20180619062206) do
     t.integer "category", limit: 3, default: 0, null: false
   end
 
+  add_foreign_key "applied_details", "applied_user_completion_details"
+  add_foreign_key "applied_details", "projects"
   add_foreign_key "applied_details", "users"
   add_foreign_key "applied_user_completion_details", "projects"
   add_foreign_key "applied_user_completion_details", "users"
-  add_foreign_key "completion_projects", "applied_user_completion_details"
-  add_foreign_key "completion_projects", "projects"
   add_foreign_key "project_skills_categories", "projects"
   add_foreign_key "project_skills_categories", "skills_categories"
   add_foreign_key "projects", "users"

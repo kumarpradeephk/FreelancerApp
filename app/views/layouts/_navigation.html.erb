@@ -7,8 +7,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        
-        <%= link_to "Home", users_path, class:"nav-link" %>
+        <% begin %>
+        <%= link_to "Home", home_path, class:"nav-link" %>
+        <% rescue %>
+          redirect_to users_path
+        <% end %>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -18,10 +21,13 @@
           Action
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
           <% if logged_in? %>
-          <%= link_to "Post New Project", new_project_path, class: "dropdown-item btn " %>
-          <%= link_to "View Available Projects", home_path, class: "dropdown-item btn " %>
+            <% if @current_user.category == 'hire'%>
+            <%= link_to "Post New Project", new_project_path, class: "dropdown-item btn " %>
+            <%= link_to "View Available Projects", home_path, class: "dropdown-item btn " %>
+            <% else %>
+            <%= link_to "View Available Projects", home_path, class: "dropdown-item btn " %>
+            <% end %>
           <% end %>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
