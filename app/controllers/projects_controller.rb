@@ -4,9 +4,14 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
+		begin
 		@project = Project.find(params[:id])
 		@category = @project.skills_categories.pluck(:tech_skills)
 		@project_cost_and_user_info = @project.applied_details
+		rescue
+			flash[:notice] = "not logged in"
+			redirect_to users_path
+		end
 	end
 
 	def view

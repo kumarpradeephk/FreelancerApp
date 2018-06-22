@@ -1,4 +1,5 @@
 <div class="jumbotron container">
+<% if logged_in? %>
 	<h1 class="center header">Provide the project details</h1><br>
 	<div class="col-xl-12">
 		<%= form_for @project do |f| %>
@@ -35,4 +36,5 @@
 			</div>
 		<% end %>
 	</div>
+<% end %>
 </div>

@@ -1,4 +1,5 @@
 <div class="container">
+<% if logged_in? %>
 	<h1 class="center header">Here is your project details</h1>
 
 	<div class="jumbotron">
@@ -28,5 +29,8 @@
 		<h4>No approval details</h4><hr>
 		<%end%>
 	</div>
+<% else %>
+	<%= link_to "index", users_path, class: 'btn btn-danger btn-lg' %>
+<% end %>
 </div>
 
