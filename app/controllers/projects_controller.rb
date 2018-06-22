@@ -50,8 +50,8 @@ class ProjectsController < ApplicationController
 				flash[:notice] =  " Successfully posted your project "
 				redirect_to home_path
 			end
-		rescue  => e
-			flash[:notice] = @project.errors.full_messages
+		rescue => e
+			flash[:notice] = e
 			redirect_to new_project_path
 		end
 end
