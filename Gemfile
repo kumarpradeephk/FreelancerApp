@@ -37,6 +37,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "select2-rails"
 gem "sunspot_rails"
 gem "sunspot_solr"
+gem "progress_bar"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 #ERD generate

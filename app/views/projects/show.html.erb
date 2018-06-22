@@ -18,9 +18,9 @@
 			<% assigned_user_application_id.each do |item| %>
 			
 			<% cost_detail = @project.applied_user_completion_details.where(user_id:item[0]).where(id:item[1]) %>
-			<h3><b>Start date:</b> <span><%= cost_detail.pluck(:start_date)[0] %></span></h3>
-			<h3><b>Total cost:</b> <span><%= cost_detail.pluck(:cost)[0] %></span></h3>
-			<h3><b>Total Time:</b> <span><%= cost_detail.pluck(:total_time)[0] %></span></h3>
+			<h3><b>Start date:</b> <span><%= cost_detail.pluck(:start_date)[0].to_formatted_s(:rfc822) %></span></h3>
+			<h3><b>Total cost(INR):</b> <span><%= cost_detail.pluck(:cost)[0] %></span></h3>
+			<h3><b>Total Time(Days):</b> <span><%= cost_detail.pluck(:total_time)[0] %></span></h3>
 			<h3><b>User Email:</b> <span><%= User.find(cost_detail.pluck(:user_id)[0]).email %></span></h3><hr>
 			<% end %>
 		<%end%>

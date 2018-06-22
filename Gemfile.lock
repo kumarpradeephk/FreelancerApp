@@ -85,6 +85,7 @@ GEM
       activesupport (>= 4.2.0)
     has_secure_token (1.0.0)
       activerecord (>= 3.0)
+    highline (1.7.10)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -109,8 +110,12 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
+    options (2.3.2)
     pg (1.0.0)
     pr_geohash (1.0.0)
+    progress_bar (1.2.0)
+      highline (~> 1.6)
+      options (~> 2.3.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -252,6 +257,7 @@ DEPENDENCIES
   mail
   mysql2 (~> 0.3.11)
   pg
+  progress_bar
   pry
   puma (~> 3.7)
   rails (~> 5.1.5)

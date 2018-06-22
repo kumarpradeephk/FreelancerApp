@@ -9,7 +9,7 @@
 		<!-- search field start -->
 				<%= form_tag home_path, method: :get do %>
 				<p>
-					<%= text_field_tag :search, params[:search], placeholder: "search by category name" %>
+					<%= text_field_tag :search, params[:search], placeholder: "search by category name", required:"true" %>
 					<%= submit_tag "search", name: nil%>
 				</p>
 				<% end %>

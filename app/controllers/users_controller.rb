@@ -6,18 +6,24 @@ class UsersController < ApplicationController
   def home
     begin
     if params[:search] == nil
-    @all_projects = Project.where.not(user: current_user)
-    #####sunspot
+    @all_projects = Project.where.not(user: current_user).where(is_closed:false)
+    else
+    @all_projects = SkillsCategory.find_by_tech_skills(params[:search]).projects.where.not(user: current_user)
+        # #####sunspot
         # @search = SkillsCategory.search do
         #   fulltext params[:search]
         # end
-    else
-    @all_projects = SkillsCategory.find_by_tech_skills(params[:search]).projects.where.not(user: current_user)
+        # #binding.pry
+        # @all_projects = @search.results
+        # #####sunspot end
     end
-    #####sunspot end
+    rescue => e
+      flash[:notice] = "no any project"
+    end
+    begin
      @my_projects = current_user.projects.pluck(:id,:project_name,:description,:is_closed)
-    rescue
-      flash[:notice] = "No project available."
+    rescue => e
+      flash[:notice] = "you are not logged in"
     end
   end
 

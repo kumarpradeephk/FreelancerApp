@@ -13,7 +13,7 @@
 		<tbody>
 			<tr>
 				<td><%= Project.find(project_id).project_name %></td>
-				<td><%= start_date %></td>
+				<td><%= start_date.to_formatted_s(:rfc822) %></td>
 				<td><%= cost %></td>
 				<td><%= total_time %></td>
 				<% proj = Project.find(AppliedUserCompletionDetail.find(id).project_id)%>
