@@ -23,7 +23,8 @@ class UsersController < ApplicationController
     begin
      @my_projects = current_user.projects.pluck(:id,:project_name,:description,:is_closed)
     rescue => e
-      flash[:notice] = "you are not logged in"
+      #defined in application.rb
+      require_user
     end
   end
 

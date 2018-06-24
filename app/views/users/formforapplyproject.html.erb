@@ -1,4 +1,5 @@
 <div class="jumbotron container">
+<% if logged_in? %>
 	<div class="col-xl-12">
 	<% if !@current_user.applied_user_completion_details.where(user_id:@current_user).where(project_id:params[:format]).empty? %>
 	<h1 class="center header">You Have Already applied.</h1>
@@ -40,4 +41,7 @@
 		<% end %>
 	<%end%>
 	</div>
+<% else %>
+<%= link_to "Goto index", users_path, class: 'btn btn-danger' %>
+<% end %>
 </div>

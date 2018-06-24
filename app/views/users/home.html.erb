@@ -1,6 +1,6 @@
 <div class="center container">
 	<h1 class="header jumbotron indexjumbotron">Welcome to home page</h1>
-	<% if logged_in?%>
+	<% if logged_in? %>
 	<!-- other project -->
 	<div class="container">
 		<br/><h1>Other Projects</h1><br/>
@@ -88,7 +88,5 @@
 	<% elsif logged_in? && @current_user.category == 'work'%>
 	<br><%= link_to "view your applied Projects", applied_path, class: 'btn btn-info' %>
 	<% end %>
-	<% else %>
-	<%= link_to "index", users_path, class: 'btn btn-danger btn-lg' %>
 	<% end %>
 </div>
