@@ -68,8 +68,9 @@ def fromforapplyproject
 end
 
 def applied
-  @applied_confirmed_id = current_user.applied_user_completion_details.where(got_project:1).pluck(:project_id,:user_id)
-  @applied_project_id = current_user.applied_user_completion_details.where(got_project:0).pluck(:project_id)
+  userId = current_user.id
+  @applied_confirmed = Project.joins(:applied_user_completion_details).where('applied_user_completion_details.got_project=1').where("applied_user_completion_details.user_id=#{userId}")
+  @applied_project = Project.joins(:applied_user_completion_details).where('applied_user_completion_details.got_project=0').where("applied_user_completion_details.user_id=#{userId}")
 
 end
 

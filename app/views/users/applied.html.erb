@@ -7,12 +7,12 @@
 				<th>DESCRIPTION</th>
 				<th>STATUS</th>
 				</thead>
-				<% @applied_project_id.each do |projectId|%>
-				<% applied_project = Project.find(projectId)%>
+				<% @applied_project.each do |project|%>
+				
 					<tbody>
 					<tr>
-						<td><%= applied_project.project_name %></td>
-						<td><%= applied_project.description %></td>
+						<td><%= project.project_name %></td>
+						<td><%= project.description %></td>
 						<td class="btn btn-info">Applied</td>
 					</tr>
 					</tbody>
@@ -27,13 +27,13 @@
 				<th>Contact Email</th>
 				<th>STATUS</th>
 				</thead>
-				<% @applied_confirmed_id.each do |projectId,userId|%>
-				<% applied_confirmed = Project.find(projectId)%>
+				<% @applied_confirmed.each do |project|%>
+
 					<tbody>
 					<tr>
-						<td><%= applied_confirmed.project_name %></td>
-						<td><%= link_to "view project", project_path(projectId), class: 'btn btn-info' %></td>
-						<td><%= User.find(Project.find(projectId).user_id).email %></td>
+						<td><%= project.project_name %></td>
+						<td><%= link_to "view project", project_path(project.id), class: 'btn btn-info' %></td>
+						<td><%= User.find(project.user_id).email %></td>
 						<td class="btn btn-success">Approved</td>
 					</tr>
 					</tbody>
