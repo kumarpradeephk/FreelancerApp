@@ -13,11 +13,10 @@
 			 </b>
 		</h3>
 		<%begin%>
-		<% assigned_user_application_id = @project_cost_and_user_info.pluck(:user_id,:applied_user_completion_detail_id)%>
-		<%if @current_user.category == 'hire' %>
-		<h1 class="center header">Your approval details</h1><hr>
+		<% assigned_user_application_id = @project_cost_and_user_info.pluck(:user_id,:id)%>
+		<%if @current_user.category == 'hire' && @current_user.id == @admin_id %>
+		<h1 class="center header">Approval details</h1><hr>
 			<% assigned_user_application_id.each do |item| %>
-			
 			<% cost_detail = @project.applied_user_completion_details.where(user_id:item[0]).where(id:item[1]) %>
 			<h3><b>Start date:</b> <span><%= cost_detail.pluck(:start_date)[0].to_formatted_s(:rfc822) %></span></h3>
 			<h3><b>Total cost(INR):</b> <span><%= cost_detail.pluck(:cost)[0] %></span></h3>

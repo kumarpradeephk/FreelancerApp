@@ -27,12 +27,13 @@
 				<th>Contact Email</th>
 				<th>STATUS</th>
 				</thead>
-				<% @applied_confirmed.each do |id,project_name,description|%>
+				<% @applied_confirmed_id.each do |projectId,userId|%>
+				<% applied_confirmed = Project.find(projectId)%>
 					<tbody>
 					<tr>
-						<td><%= project_name %></td>
-						<td><%= link_to "view project", project_path(AppliedDetail.find(id).project_id), class: 'btn btn-info' %></td>
-						<td><%= User.find(Project.find(id).user_id).email %></td>
+						<td><%= applied_confirmed.project_name %></td>
+						<td><%= link_to "view project", project_path(projectId), class: 'btn btn-info' %></td>
+						<td><%= User.find(Project.find(projectId).user_id).email %></td>
 						<td class="btn btn-success">Approved</td>
 					</tr>
 					</tbody>

@@ -1,8 +1,6 @@
 <div class="jumbotron container">
 	<div class="col-xl-12">
-	<% if !@current_user.applied_user_completion_details.where(user_id:@current_user).where(project_id:params[:format]).empty? %>
-	<h1 class="center header">You Have Already applied.</h1>
-	<%else%>
+
 	<h1 class="center header">Provide Your details regarding completion of project</h1><br>
 		<%= form_tag apply_path  do %>
 			<div class="form-group row">
@@ -38,6 +36,6 @@
 				</div>
 			</div>
 		<% end %>
-	<%end%>
+
 	</div>
 </div>

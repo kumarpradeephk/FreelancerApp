@@ -3,7 +3,6 @@
 <div>
 	<table class="table table-striped">
 		<thead>
-			<th>Project</th>
 			<th>START DATE(yy-mm-dd)</th>
 			<th>COST(INR)</th>
 			<th>TOTAL TIME (in days)</th>
@@ -13,7 +12,6 @@
 		<% @all_application.each do |id,start_date,cost,total_time,got_project,project_id|%>
 		<tbody>
 			<tr>
-				<td><%= Project.find(project_id).project_name %></td>
 				<td><%= start_date.to_formatted_s(:rfc822) %></td>
 				<td><%= cost %></td>
 				<td><%= total_time %></td>

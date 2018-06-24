@@ -24,9 +24,11 @@
 						 
 						<div><%= projects.description %></div>
 						<%if @current_user.work? %>
+
 						<div> 
 							<%= link_to "Apply for this project", formforapplyproject_path(projects.id), class: 'btn btn-success' %> | <%= link_to "view", project_path(projects.id), class: 'btn btn-info' %> | <button class="btn btn-info disable"><%= Project.find(Project.where.not(user: @current_user).find(projects.id).id).applied_user_completion_details.count() %> people Applied </button>
 						</div>
+						
 						<%elsif @current_user.hire?%>
 							<%= link_to "view", project_path(projects.id), class: 'btn btn-info' %> | <button class="btn btn-info disable"><%= Project.find(Project.where.not(user: @current_user).find(projects.id).id).applied_user_completion_details.count() %> people Applied </button>
 						<%end%><br>

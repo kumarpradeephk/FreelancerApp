@@ -6,10 +6,11 @@ class ProjectsController < ApplicationController
 	def show
 		begin
 		@project = Project.find(params[:id])
+		@admin_id = @project.user_id
 		@category = @project.skills_categories.pluck(:tech_skills)
-		@project_cost_and_user_info = @project.applied_details
-		rescue
-			flash[:notice] = "not logged in"
+		@project_cost_and_user_info = @project.applied_user_completion_details.where(got_project:1)
+		rescue => e
+			flash[:notice] = "no project exist"
 			redirect_to users_path
 		end
 	end

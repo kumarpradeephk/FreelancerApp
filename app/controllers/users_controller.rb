@@ -57,8 +57,8 @@ def apply
       flash[:notice] = "you have apllied for this project"
       redirect_to home_path
     end
-  rescue
-    flash[:notice] = "oops!,something error occured in apply/already applied."
+  rescue => e
+    flash[:notice] = e
     redirect_to home_path
   end
 end
@@ -68,7 +68,7 @@ def fromforapplyproject
 end
 
 def applied
-  @applied_confirmed = current_user.applied_details.pluck(:id,:project_name,:description)
+  @applied_confirmed_id = current_user.applied_user_completion_details.where(got_project:1).pluck(:project_id,:user_id)
   @applied_project_id = current_user.applied_user_completion_details.where(got_project:0).pluck(:project_id)
 
 end
@@ -90,16 +90,13 @@ end
 def approved_project
   @application = AppliedUserCompletionDetail.find(params[:format])
   @project = Project.find(@application.project_id)
-  @approved = AppliedDetail.new(project_name:@project.project_name,description:@project.description,user_id:@application.user_id,project_id:@application.project_id,applied_user_completion_detail_id:@application.id)
   @application.got_project = true
-  if @approved.save! 
-    @application.save!
-    @project.save!
+  if @application.save!
     FreelanceMailer.project_approval(User.find(@application.user_id)).deliver
     flash[:notice] = "successfully approved"
     redirect_to showappliedproject_path(@application.project_id)
   else
-    render json: {"status": "failed to apply"}
+    flash[:notice] = "failed your approval"
   end
 end
 

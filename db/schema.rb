@@ -10,20 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621063532) do
-
-  create_table "applied_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "project_name"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.bigint "project_id"
-    t.bigint "applied_user_completion_detail_id"
-    t.index ["applied_user_completion_detail_id"], name: "index_applied_details_on_applied_user_completion_detail_id"
-    t.index ["project_id"], name: "index_applied_details_on_project_id"
-    t.index ["user_id"], name: "index_applied_details_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 20180623181835) do
 
   create_table "applied_user_completion_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date "start_date"
@@ -31,8 +18,8 @@ ActiveRecord::Schema.define(version: 20180621063532) do
     t.integer "total_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.bigint "project_id"
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
     t.boolean "got_project", default: false
     t.boolean "is_rejected", default: false
     t.index ["project_id"], name: "index_applied_user_completion_details_on_project_id"
@@ -42,8 +29,8 @@ ActiveRecord::Schema.define(version: 20180621063532) do
   create_table "project_skills_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "skills_category_id"
+    t.bigint "project_id", null: false
+    t.bigint "skills_category_id", null: false
     t.index ["project_id"], name: "index_project_skills_categories_on_project_id"
     t.index ["skills_category_id"], name: "index_project_skills_categories_on_skills_category_id"
   end
@@ -53,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180621063532) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.boolean "is_closed", default: false
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
@@ -65,18 +52,15 @@ ActiveRecord::Schema.define(version: 20180621063532) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password_digest"
+    t.string "username", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category", limit: 3, default: 0, null: false
   end
 
-  add_foreign_key "applied_details", "applied_user_completion_details"
-  add_foreign_key "applied_details", "projects"
-  add_foreign_key "applied_details", "users"
   add_foreign_key "applied_user_completion_details", "projects"
   add_foreign_key "applied_user_completion_details", "users"
   add_foreign_key "project_skills_categories", "projects"
