@@ -30,12 +30,20 @@ development:
   encoding: utf8
   database: F22
   username: root
-  password: 
+  password:
   host: 127.0.0.1
   port: 3306
   variables:
     sql_mode: TRADITIONAL
 
+staging:
+  adapter: mysql2
+  encoding: utf8
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
 
 test:
   adapter: mysql2
@@ -44,4 +52,4 @@ test:
   database: company_test
   pool: 5
   username: root
-  password: 
+  password:
