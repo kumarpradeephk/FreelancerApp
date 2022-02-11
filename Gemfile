@@ -14,7 +14,7 @@ gem 'dotenv-rails'
 #gem 'sqlite3'
 gem 'mysql2', '~> 0.3.11'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 5.6'
 # Use SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sass-rails', '~> 5.0'
